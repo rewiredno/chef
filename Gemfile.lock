@@ -32,6 +32,7 @@ PATH
       bcrypt_pbkdf (~> 1.0)
       bundler (>= 1.10)
       chef-config (= 15.4.27)
+      chef-utils (= 15.4.27)
       chef-zero (>= 14.0.11)
       diff-lcs (~> 1.2, >= 1.2.4)
       ed25519 (~> 1.2)
@@ -63,6 +64,7 @@ PATH
       bcrypt_pbkdf (~> 1.0)
       bundler (>= 1.10)
       chef-config (= 15.4.27)
+      chef-utils (= 15.4.27)
       chef-zero (>= 14.0.11)
       diff-lcs (~> 1.2, >= 1.2.4)
       ed25519 (~> 1.2)
@@ -113,10 +115,16 @@ PATH
   specs:
     chef-config (15.4.27)
       addressable
+      chef-utils (= 15.4.27)
       fuzzyurl
       mixlib-config (>= 2.2.12, < 4.0)
       mixlib-shellout (>= 2.0, < 4.0)
       tomlrb (~> 1.2)
+
+PATH
+  remote: chef-utils
+  specs:
+    chef-utils (15.4.27)
 
 GEM
   remote: https://rubygems.org/
@@ -416,6 +424,7 @@ DEPENDENCIES
   chef!
   chef-bin!
   chef-config!
+  chef-utils!
   chef-vault
   cheffish (~> 14)
   chefstyle!

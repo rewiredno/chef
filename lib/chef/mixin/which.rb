@@ -30,7 +30,7 @@ class Chef
         paths = env_path.split(File::PATH_SEPARATOR) + Array(extra_path)
         cmds.map do |cmd|
           paths.map do |path|
-            filename = Chef.path_to(File.join(path, cmd))
+            filename = File.join(path, cmd)
             filename if valid_executable?(filename, &block)
           end.compact
         end.flatten

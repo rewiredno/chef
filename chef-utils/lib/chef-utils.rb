@@ -32,12 +32,15 @@ module ChefUtils
   extend ChefUtils::PlatformFamily
   extend ChefUtils::Platform
   extend ChefUtils::Introspection
-  extend ChefUtils::Which
+  # extend ChefUtils::Which
+  # extend ChefUtils::PathSanity
   include ChefUtils::Architecture
   include ChefUtils::OS
   include ChefUtils::PlatformFamily
   include ChefUtils::Platform
   include ChefUtils::Introspection
-  include ChefUtils::Which
+  # include ChefUtils::Which
+  # include ChefUtils::PathSanity
+  # ChefUtils::Internal is deliberately excluded
   # ChefUtils::Service is deliberately excluded
 end

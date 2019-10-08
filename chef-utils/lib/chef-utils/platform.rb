@@ -18,17 +18,23 @@
 module ChefUtils
   module Platform
     extend self
-
-    # Determine if the current node is arch linux.
     #
-    # @param [Chef::Node] node
+    # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
     #
-    # @return [Boolean]
+    # When adding platforms which are the same name as the platform_family
+    # please add them to the platform_family helpers.  Resolve the namespace
+    # collision by adding a `_platform?` suffix here.  So we have the
+    # debian? platform_family helper and the debian_platform?, ubuntu? and
+    # linuxmint? platform helpers.
     #
-    def arch?(node)
-      node["platform"] == "arch"
-    end
-    alias_method :arch_linux?, :arch?
+    # This encourages the use of the platform family via the shorter name and
+    # is backwards compatible with the chef-sugar usage.
+    #
+    # This encourages the use of the platform_family helpers where after adding
+    # a new platform to a platform_family the existing code MAY work unchanged,
+    # while with the use of a platform matcher the existing code will ALWAYS
+    # be guaranteed to fail and must be updated.
+    #
 
     #
     # Determine if the current node is linux mint.
@@ -53,6 +59,28 @@ module ChefUtils
     #
     def ubuntu?(node = Internal.getnode)
       node["platform"] == "ubuntu"
+    end
+
+    #
+    # Determine if the current node is raspbian.
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def raspbian?(node = Internal.getnode)
+      node["platform"] == "raspbian"
+    end
+
+    #
+    # Determine if the current node is debian.
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def debian_platform?(node = Internal.getnode)
+      node["platform"] == "debian"
     end
 
     #
@@ -125,11 +153,9 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def solaris2?(node = Internal.getnode)
+    def solaris2_platform?(node = Internal.getnode)
       node["platform"] == "solaris2"
     end
-    # chef-sugar backcompat methods
-    alias_method :solaris?, :solaris2?
 
     # Determine if the current node is smartos
     #
@@ -187,7 +213,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def aix?(node = Internal.getnode)
+    def aix_platform?(node = Internal.getnode)
       node["platform"] == "aix"
     end
 
@@ -197,7 +223,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def freebsd?(node)
+    def freebsd_platform?(node = Internal.getnode)
       node["platform"] == "freebsd"
     end
 
@@ -207,7 +233,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def openbsd?(node)
+    def openbsd_platform?(node = Internal.getnode)
       node["platform"] == "openbsd"
     end
 
@@ -217,7 +243,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def netbsd?(node)
+    def netbsd_platform?(node = Internal.getnode)
       node["platform"] == "netbsd"
     end
 
@@ -227,7 +253,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def dragonflybsd?(node)
+    def dragonflybsd_platform?(node = Internal.getnode)
       node["platform"] == "dragonflybsd"
     end
 
@@ -237,7 +263,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def mac_os_x?(node)
+    def mac_os_x_platform?(node = Internal.getnode)
       node["platform"] == "mac_os_x"
     end
 
@@ -247,7 +273,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def gentoo?(node)
+    def gentoo_platform?(node = Internal.getnode)
       node["platform"] == "gentoo"
     end
 
@@ -257,7 +283,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def slackware?(node)
+    def slackware_platform?(node = Internal.getnode)
       node["platform"] == "slackware"
     end
 
@@ -267,7 +293,7 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def suse?(node)
+    def suse_platform?(node = Internal.getnode)
       node["platform"] == "suse"
     end
 

@@ -66,6 +66,7 @@ group(:development, :test) do
   gem "rspec_junit_formatter", "~> 0.2.0"
   gem "simplecov"
   gem "webmock"
+  gem "fauxhai" # for chef-utils gem
 end
 
 group(:chefstyle) do

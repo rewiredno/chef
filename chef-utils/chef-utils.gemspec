@@ -15,13 +15,21 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  # FIXME: helpful screaming at people to not add deps to any other chef-ecosystem gems
-
-  spec.add_development_dependency "rake"
-
-  %w{rspec-core rspec-expectations rspec-mocks}.each do |rspec|
-    spec.add_development_dependency(rspec, "~> 3.2")
-  end
+  #
+  # NOTE: DO NOT ADD RUNTIME DEPS TO OTHER CHEF ECOSYSTEM GEMS
+  # (e.g. chef, ohai, mixlib-anything, ffi-yajl, and IN PARTICULAR NOT chef-config)
+  #
+  # This is so that this set of common code can be reused in any other library without
+  # creating circular dependencies.  If you find yourself wanting to do that you probably
+  # have a helper that should go into the library you want to declare a dependency on,
+  # or you need to create another gem that is not this one.  You may also want to rub some
+  # dependency injection on your API to invert things so that you don't have to take
+  # a dependency on the thing you need (i.e. allow injecting a hash-like thing instead of taking
+  # a dep on mixlib-config and then require the consumer to wire up chef-config to your
+  # API).  Same for mixlib-log and Chef::Log in general.
+  #
+  # ABSOLUTELY NO EXCEPTIONS
+  #
 
   spec.files = %w{Rakefile LICENSE} + Dir.glob("*.gemspec") +
     Dir.glob("{lib,spec}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }

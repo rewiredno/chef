@@ -22,16 +22,27 @@ module ChefUtils
 
     extend self
 
+    # Determine if the current node is arch linux.
     #
-    # NOTE CAREFULLY: Most node['platform_family'] values should not appear in this file at all.
+    # @param [Chef::Node] node
     #
-    # For cases where node['os'] == node['platform_family'] == node['platform'] then
-    # only the platform helper should be added.
+    # @return [Boolean]
     #
-    # For cases where there are more than one platform in the platform family, but the platform_family
-    # name duplicates one of the platform names, then it should be added here with the _family? suffix.
-    # (e.g. fedora_platform?, debian_platform?, etc).
+    def arch?(node = Internal.getnode)
+      node["platform_family"] == "arch"
+    end
+    # chef-sugar backcompat methods
+    alias_method :arch_linux?, :arch?
+
+    # Determine if the current node is aix
     #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def aix?(node = Internal.getnode)
+      node["platform_family"] == "aix"
+    end
 
     # Determine if the current node is a member of the debian family.
     #
@@ -39,10 +50,9 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def debian_platform?(node)
+    def debian?(node = Internal.getnode)
       node["platform_family"] == "debian"
     end
-    # NOTE: debian? matches only the exact platform
 
     # Determine if the current node is a member of the fedora family.
     #
@@ -50,10 +60,9 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def fedora_platform?(node)
+    def fedora?(node = Internal.getnode)
       node["platform_family"] == "fedora"
     end
-    # NOTE: fedora? matches only the exact platform
 
     # Determine if the current node is a member of the OSX family.
     #
@@ -61,13 +70,12 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def mac_os_x_family?(node)
+    def mac_os_x?(node = Internal.getnode)
       node["platform_family"] == "mac_os_x"
     end
-    alias_method :osx?, :mac_os_x_family?
-    alias_method :mac?, :mac_os_x_family?
-    alias_method :macos?, :mac_os_x_family?
-    # NOTE: mac_os_x? matches only the exact platform
+    alias_method :osx?, :mac_os_x?
+    alias_method :mac?, :mac_os_x?
+    alias_method :macos?, :mac_os_x?
 
     # Determine if the current node is a member of the redhat family.
     #
@@ -75,10 +83,22 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def rhel?(node)
+    def rhel?(node = Internal.getnode)
       node["platform_family"] == "rhel"
     end
     alias_method :el?, :rhel?
+
+    # Determine if the current node is solaris2
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def solaris2?(node = Internal.getnode)
+      node["platform_family"] == "solaris2"
+    end
+    # chef-sugar backcompat methods
+    alias_method :solaris?, :solaris2?
 
     # Determine if the current node is a member of the suse family.
     #
@@ -86,10 +106,59 @@ module ChefUtils
     #
     # @return [Boolean]
     #
-    def suse_family?(node)
+    def suse?(node = Internal.getnode)
       node["platform_family"] == "suse"
     end
-    # NOTE: suse? matches only the exact platform
+
+    # Determine if the current node is a member of the gentoo family.
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def gentoo?(node = Internal.getnode)
+      node["platform_family"] == "gentoo"
+    end
+
+    # Determine if the current node is freebsd
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def freebsd?(node = Internal.getnode)
+      node["platform_family"] == "freebsd"
+    end
+
+    # Determine if the current node is openbsd
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def openbsd?(node = Internal.getnode)
+      node["platform_family"] == "openbsd"
+    end
+
+    # Determine if the current node is netbsd
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def netbsd?(node = Internal.getnode)
+      node["platform_family"] == "netbsd"
+    end
+
+    # Determine if the current node is dragonflybsd
+    #
+    # @param [Chef::Node] node
+    #
+    # @return [Boolean]
+    #
+    def dragonflybsd?(node = Internal.getnode)
+      node["platform_family"] == "dragonflybsd"
+    end
 
     # Determine if the current node is a member of the windows family.
     #
@@ -165,6 +234,7 @@ module ChefUtils
     # @return [Boolean]
     #
     def bsd_based?(node = Internal.getnode)
+      # we could use os, platform_family or platform here equally
       %w{netbsd freebsd openbsd dragonflybsd}.include?(node["platform"])
     end
   end
